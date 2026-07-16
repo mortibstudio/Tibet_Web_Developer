@@ -28,42 +28,42 @@ document.getElementById('brief-form').addEventListener('submit', async (event) =
   }
 });
 
-const projectTrigger = document.querySelector('.project-large');
-const projectModal = document.getElementById('pennylane-modal');
-const projectPanel = projectModal?.querySelector('.project-modal-panel');
-let lastFocusedElement;
+function wireProjectModal(trigger, modal) {
+  if (!trigger || !modal) return;
+  const panel = modal.querySelector('.project-modal-panel');
+  let lastFocusedElement;
 
-function closeProjectModal() {
-  if (!projectModal || projectModal.hidden) return;
-  projectModal.hidden = true;
-  document.body.style.overflow = '';
-  lastFocusedElement?.focus();
-}
+  const closeModal = () => {
+    if (modal.hidden) return;
+    modal.hidden = true;
+    document.body.style.overflow = '';
+    lastFocusedElement?.focus();
+  };
 
-function openProjectModal() {
-  if (!projectModal) return;
-  lastFocusedElement = document.activeElement;
-  projectModal.hidden = false;
-  document.body.style.overflow = 'hidden';
-  projectPanel?.focus();
-}
+  const openModal = () => {
+    lastFocusedElement = document.activeElement;
+    modal.hidden = false;
+    document.body.style.overflow = 'hidden';
+    panel?.focus();
+  };
 
-if (projectTrigger) {
-  projectTrigger.classList.add('project-trigger');
-  projectTrigger.tabIndex = 0;
-  projectTrigger.setAttribute('role', 'button');
-  projectTrigger.setAttribute('aria-haspopup', 'dialog');
-  projectTrigger.setAttribute('aria-controls', 'pennylane-modal');
-  projectTrigger.addEventListener('click', openProjectModal);
-  projectTrigger.addEventListener('keydown', (event) => {
+  trigger.classList.add('project-trigger');
+  trigger.tabIndex = 0;
+  trigger.setAttribute('role', 'button');
+  trigger.setAttribute('aria-haspopup', 'dialog');
+  trigger.setAttribute('aria-controls', modal.id);
+  trigger.addEventListener('click', openModal);
+  trigger.addEventListener('keydown', (event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      openProjectModal();
+      openModal();
     }
+  });
+  modal.querySelectorAll('[data-project-close]').forEach((control) => control.addEventListener('click', closeModal));
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeModal();
   });
 }
 
-projectModal?.querySelectorAll('[data-project-close]').forEach((control) => control.addEventListener('click', closeProjectModal));
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') closeProjectModal();
-});
+wireProjectModal(document.querySelector('.project-large'), document.getElementById('pennylane-modal'));
+wireProjectModal(document.querySelector('img[src$="sdesign-mockup.jpg"]')?.closest('.project'), document.getElementById('sdesign-modal'));
