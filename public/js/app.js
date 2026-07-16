@@ -67,3 +67,4 @@ function wireProjectModal(trigger, modal) {
 
 wireProjectModal(document.querySelector('.project-large'), document.getElementById('pennylane-modal'));
 wireProjectModal(document.querySelector('img[src$="sdesign-mockup.jpg"]')?.closest('.project'), document.getElementById('sdesign-modal'));
+wireProjectModal(document.querySelector('.elit-project'), document.getElementById('elitkoz-modal'));
