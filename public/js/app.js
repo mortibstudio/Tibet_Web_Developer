@@ -69,3 +69,4 @@ wireProjectModal(document.querySelector('.project-large'), document.getElementBy
 wireProjectModal(document.querySelector('img[src$="sdesign-mockup.jpg"]')?.closest('.project'), document.getElementById('sdesign-modal'));
 wireProjectModal(document.querySelector('.elit-project'), document.getElementById('elitkoz-modal'));
 wireProjectModal(document.querySelector('.falbaz-project'), document.getElementById('falbaz-modal'));
+wireProjectModal(document.querySelector('.dicle-project'), document.getElementById('dicle-modal'));
