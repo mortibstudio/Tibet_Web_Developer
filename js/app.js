@@ -27,3 +27,43 @@ document.getElementById('brief-form').addEventListener('submit', async (event) =
     result.textContent = currentLang === 'tr' ? 'Proje özetiniz hazır. İletişim kanalı eklendiğinde doğrudan gönderebilirsiniz.' : 'Your project brief is ready. You can send it directly once the contact channel is added.';
   }
 });
+
+const projectTrigger = document.querySelector('.project-large');
+const projectModal = document.getElementById('pennylane-modal');
+const projectPanel = projectModal?.querySelector('.project-modal-panel');
+let lastFocusedElement;
+
+function closeProjectModal() {
+  if (!projectModal || projectModal.hidden) return;
+  projectModal.hidden = true;
+  document.body.style.overflow = '';
+  lastFocusedElement?.focus();
+}
+
+function openProjectModal() {
+  if (!projectModal) return;
+  lastFocusedElement = document.activeElement;
+  projectModal.hidden = false;
+  document.body.style.overflow = 'hidden';
+  projectPanel?.focus();
+}
+
+if (projectTrigger) {
+  projectTrigger.classList.add('project-trigger');
+  projectTrigger.tabIndex = 0;
+  projectTrigger.setAttribute('role', 'button');
+  projectTrigger.setAttribute('aria-haspopup', 'dialog');
+  projectTrigger.setAttribute('aria-controls', 'pennylane-modal');
+  projectTrigger.addEventListener('click', openProjectModal);
+  projectTrigger.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      openProjectModal();
+    }
+  });
+}
+
+projectModal?.querySelectorAll('[data-project-close]').forEach((control) => control.addEventListener('click', closeProjectModal));
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') closeProjectModal();
+});
