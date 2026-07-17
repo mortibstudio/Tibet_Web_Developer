@@ -9,6 +9,7 @@ function setLanguage(lang) {
   });
   document.querySelectorAll('.lang-toggle span').forEach((span) => span.classList.remove('active'));
   document.querySelector(`.lang-toggle span${lang === 'tr' ? ':first-child' : ':last-child'}`).classList.add('active');
+  syncMoreWorkToggle();
 }
 
 langToggle.addEventListener('click', () => setLanguage(currentLang === 'tr' ? 'en' : 'tr'));
@@ -62,6 +63,27 @@ function wireProjectModal(trigger, modal) {
   modal.querySelectorAll('[data-project-close]').forEach((control) => control.addEventListener('click', closeModal));
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeModal();
+  });
+}
+
+const moreWorkToggle = document.querySelector('[data-more-work-toggle]');
+const otherWorkGrid = document.getElementById('other-work-grid');
+
+function syncMoreWorkToggle() {
+  if (!moreWorkToggle || !otherWorkGrid) return;
+  const isExpanded = moreWorkToggle.getAttribute('aria-expanded') === 'true';
+  moreWorkToggle.dataset.tr = isExpanded ? 'Diğer çalışmaları gizle' : 'Diğer çalışmaları göster';
+  moreWorkToggle.dataset.en = isExpanded ? 'Hide more work' : 'Show more work';
+  moreWorkToggle.innerHTML = moreWorkToggle.dataset[currentLang];
+}
+
+if (moreWorkToggle && otherWorkGrid) {
+  syncMoreWorkToggle();
+  moreWorkToggle.addEventListener('click', () => {
+    const shouldExpand = moreWorkToggle.getAttribute('aria-expanded') !== 'true';
+    moreWorkToggle.setAttribute('aria-expanded', String(shouldExpand));
+    otherWorkGrid.hidden = !shouldExpand;
+    syncMoreWorkToggle();
   });
 }
 
