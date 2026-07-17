@@ -1,7 +1,7 @@
 :root { --ink:#11100e; --paper:#f0eee8; --lime:#d9ff3f; --blue:#a4c7ff; --line:rgba(17,16,14,.2); --mono:"DM Mono", monospace; --sans:"Manrope", sans-serif; --serif:"Playfair Display", serif; }
 * { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
-body { margin:0; background:var(--paper); color:var(--ink); font-family:var(--sans); overflow-x:hidden; }
+html { scroll-behavior:smooth; max-width:100%; overflow-x:hidden; overscroll-behavior-x:none; }
+body { margin:0; width:100%; max-width:100%; background:var(--paper); color:var(--ink); font-family:var(--sans); overflow-x:hidden; overscroll-behavior-x:none; }
 a { color:inherit; text-decoration:none; }
 button,input,select,textarea { font:inherit; }
 button { cursor:pointer; }
