@@ -3,7 +3,7 @@ export default function Home() {
     <main className="site-frame">
       <iframe
         src="/mortib.html"
-        title="MorTib Studio"
+        title="MorTib® Studio"
         className="site-preview"
       />
     </main>
