@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Tibet Studio — Digital experiences with a pulse",
-  description: "Tibet Studio creates bold digital experiences, web design and brand systems.",
+  title: "Mortib Studio — Digital experiences with a pulse",
+  description: "Mortib Studio creates bold digital experiences, web design and brand systems.",
   openGraph: {
-    title: "Tibet Studio — Digital experiences with a pulse",
+    title: "Mortib Studio — Digital experiences with a pulse",
     description: "Web design, creative code and visual systems for memorable brands.",
-    images: ["/assets/images/og-tibet-studio.png"],
+    images: ["/assets/images/og-mortib-studio.png"],
   },
 };
 
