@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" role="img" aria-labelledby="title desc">
+  <title id="title">MorTib® Studio</title>
+  <desc id="desc">MorTib Studio wordmark</desc>
+  <g fill="#11100e">
+    <text x="0" y="84" font-family="Manrope, Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="-8">MorTib</text>
+    <text x="282" y="34" font-family="DM Mono, monospace" font-size="20" font-weight="600" letter-spacing="0">®</text>
+    <text x="7" y="125" font-family="DM Mono, monospace" font-size="23" font-weight="600" letter-spacing="34">STUDIO</text>
+  </g>
+  <circle cx="349" cy="24" r="16" fill="#d9ff3f"/>
+</svg>

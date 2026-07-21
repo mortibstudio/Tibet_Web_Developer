@@ -1,0 +1,24 @@
+:root { --ink:#11100e; --paper:#f0eee8; --lime:#d9ff3f; --blue:#a4c7ff; --line:rgba(17,16,14,.2); --mono:"DM Mono", monospace; --sans:"Manrope", sans-serif; --serif:"Playfair Display", serif; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; max-width:100%; overflow-x:hidden; overscroll-behavior-x:none; }
+body { margin:0; width:100%; max-width:100%; background:var(--paper); color:var(--ink); font-family:var(--sans); overflow-x:hidden; overscroll-behavior-x:none; }
+a { color:inherit; text-decoration:none; }
+button,input,select,textarea { font:inherit; }
+button { cursor:pointer; }
+.section-pad { padding-left:clamp(1.25rem,5vw,5rem); padding-right:clamp(1.25rem,5vw,5rem); }
+.eyebrow,.section-index { font:500 .68rem/1.35 var(--mono); letter-spacing:.05em; text-transform:uppercase; }
+.section-index { margin:0; opacity:.65; }
+.brand { display:inline-flex; align-items:center; }
+.brand span { color:var(--lime); font:500 .55rem var(--mono); vertical-align:top; margin-left:3px; }
+.brand-wordmark { gap:.1rem; font-size:clamp(1.3rem,1.6vw,1.85rem); line-height:.9; letter-spacing:-.12em; font-weight:800; color:var(--ink); }
+.brand-wordmark span { align-self:flex-start; margin:.02rem .18rem 0 .03rem; color:var(--lime); letter-spacing:0; }
+.brand-wordmark small { align-self:flex-end; margin-left:.25rem; padding-bottom:.05rem; font:600 .46em/.95 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink); }
+.brand-wordmark-footer { color:var(--paper); }
+.brand-wordmark-footer small { color:var(--paper); }
+.brand-logo { height:46px !important; max-height:46px !important; width:auto !important; display:block !important; object-fit:contain !important; filter:none !important; transition:opacity .3s ease; }
+.brand-logo:hover { opacity:.75; }
+.brand-logo-footer { height:34px !important; max-height:34px !important; filter:brightness(0) invert(1) !important; }
+.brand-logo-mor { height:42px !important; max-height:42px !important; width:auto !important; display:block !important; object-fit:contain !important; transition:opacity .3s ease; }
+.brand-logo-mor:hover { opacity:.82; }
+.brand-logo-mor-footer { height:30px !important; max-height:30px !important; }
+
