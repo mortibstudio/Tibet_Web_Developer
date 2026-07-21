@@ -16,16 +16,36 @@ langToggle.addEventListener('click', () => setLanguage(currentLang === 'tr' ? 'e
 
 document.getElementById('brief-form').addEventListener('submit', async (event) => {
   event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  const brief = currentLang === 'tr'
-    ? `Yeni proje talebi\n\nMarka: ${data.get('brand')}\nİhtiyaç: ${data.get('need')}\nNot: ${data.get('message')}`
-    : `New project inquiry\n\nBrand: ${data.get('brand')}\nNeed: ${data.get('need')}\nNotes: ${data.get('message')}`;
+  const form = event.currentTarget;
+  const data = new FormData(form);
+  
   const result = document.querySelector('.form-result');
+  const submitButton = form.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton.innerHTML;
+  
+  submitButton.innerHTML = currentLang === 'tr' ? 'GÖNDERİLİYOR... ↗' : 'SENDING... ↗';
+  submitButton.disabled = true;
+  result.textContent = '';
+  result.style.color = 'inherit';
+  
   try {
-    await navigator.clipboard.writeText(brief);
-    result.textContent = currentLang === 'tr' ? 'Proje özeti panonuza kopyalandı. İletişim kanalı eklendiğinde doğrudan gönderebilirsiniz.' : 'Your project brief is copied. You can send it directly once the contact channel is added.';
-  } catch {
-    result.textContent = currentLang === 'tr' ? 'Proje özetiniz hazır. İletişim kanalı eklendiğinde doğrudan gönderebilirsiniz.' : 'Your project brief is ready. You can send it directly once the contact channel is added.';
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      body: data
+    });
+    
+    if (response.ok) {
+      result.textContent = currentLang === 'tr' ? 'Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağım.' : 'Your message has been sent successfully! I will get back to you shortly.';
+      form.reset();
+    } else {
+      throw new Error('Server error');
+    }
+  } catch (error) {
+    result.textContent = currentLang === 'tr' ? 'Gönderilirken bir hata oluştu. Lütfen e-posta ile ulaşmayı deneyin.' : 'An error occurred while sending. Please try reaching out via email.';
+    result.style.color = 'red';
+  } finally {
+    submitButton.innerHTML = originalButtonText;
+    submitButton.disabled = false;
   }
 });
 
