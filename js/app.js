@@ -18,34 +18,43 @@ document.getElementById('brief-form').addEventListener('submit', async (event) =
   event.preventDefault();
   const form = event.currentTarget;
   const data = new FormData(form);
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const result = document.querySelector('.form-result');
   
-  submitBtn.disabled = true;
-  result.textContent = currentLang === 'tr' ? 'Gönderiliyor...' : 'Sending...';
-
+  const result = document.querySelector('.form-result');
+  const submitButton = form.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton.innerHTML;
+  
+  submitButton.innerHTML = currentLang === 'tr' ? 'GÖNDERİLİYOR... ↗' : 'SENDING... ↗';
+  submitButton.disabled = true;
+  result.textContent = '';
+  result.style.color = 'inherit';
+  
+  const json = Object.fromEntries(data.entries());
+  
+  // Akıllı Yönlendirme: Vercel'deysek Vercel API, Hostinger'daysak PHP kullan
+  const isVercel = window.location.hostname.includes('vercel.app');
+  const endpoint = isVercel ? '/api/contact' : 'contact.php';
+  
   try {
-    const response = await fetch('/api/contact', {
+    const response = await fetch(endpoint, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        brand: data.get('brand'),
-        need: data.get('need'),
-        message: data.get('message')
-      })
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(json)
     });
     
     if (response.ok) {
-      result.textContent = currentLang === 'tr' ? 'Mesajınız başarıyla iletildi.' : 'Your message has been sent successfully.';
+      result.textContent = currentLang === 'tr' ? 'Mesajınız başarıyla gönderildi! En kısa sürede size dönüş yapacağım.' : 'Your message has been sent successfully! I will get back to you shortly.';
       form.reset();
     } else {
-      const errorData = await response.json();
-      result.textContent = errorData.message || (currentLang === 'tr' ? 'Bir hata oluştu.' : 'An error occurred.');
+      throw new Error('Server error');
     }
-  } catch (err) {
-    result.textContent = currentLang === 'tr' ? 'Bağlantı hatası oluştu.' : 'Connection error occurred.';
+  } catch (error) {
+    result.textContent = currentLang === 'tr' ? 'Gönderilirken bir hata oluştu. Lütfen e-posta ile ulaşmayı deneyin.' : 'An error occurred while sending. Please try reaching out via email.';
+    result.style.color = 'red';
   } finally {
-    submitBtn.disabled = false;
+    submitButton.innerHTML = originalButtonText;
+    submitButton.disabled = false;
   }
 });
 
