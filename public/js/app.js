@@ -30,8 +30,12 @@ document.getElementById('brief-form').addEventListener('submit', async (event) =
   
   const json = Object.fromEntries(data.entries());
   
+  // Akıllı Yönlendirme: Vercel'deysek Vercel API, Hostinger'daysak PHP kullan
+  const isVercel = window.location.hostname.includes('vercel.app');
+  const endpoint = isVercel ? '/api/contact' : 'contact.php';
+  
   try {
-    const response = await fetch('/api/contact', {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
