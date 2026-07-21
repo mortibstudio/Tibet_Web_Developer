@@ -8,5 +8,8 @@ button { cursor:pointer; }
 .section-pad { padding-left:clamp(1.25rem,5vw,5rem); padding-right:clamp(1.25rem,5vw,5rem); }
 .eyebrow,.section-index { font:500 .68rem/1.35 var(--mono); letter-spacing:.05em; text-transform:uppercase; }
 .section-index { margin:0; opacity:.65; }
-.brand { font-size:1.45rem; letter-spacing:-.1em; font-weight:800; }
+.brand { display:inline-flex; align-items:center; }
 .brand span { color:var(--lime); font:500 .55rem var(--mono); vertical-align:top; margin-left:3px; }
+.brand-logo { height:38px; width:auto; display:block; filter:brightness(0) invert(0); transition:opacity .3s ease; }
+.brand-logo:hover { opacity:.75; }
+.brand-logo-footer { height:32px; filter:brightness(0) invert(1); }
