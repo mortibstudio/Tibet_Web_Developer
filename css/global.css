@@ -10,6 +10,7 @@ button { cursor:pointer; }
 .section-index { margin:0; opacity:.65; }
 .brand { display:inline-flex; align-items:center; }
 .brand span { color:var(--lime); font:500 .55rem var(--mono); vertical-align:top; margin-left:3px; }
-.brand-logo { height:18px; max-height:18px; width:auto; display:block; filter:brightness(0) invert(0); transition:opacity .3s ease; }
+.brand-logo { height:28px !important; max-height:28px !important; width:auto !important; display:block !important; object-fit:contain !important; filter:none !important; transition:opacity .3s ease; }
 .brand-logo:hover { opacity:.75; }
-.brand-logo-footer { height:22px; filter:brightness(0) invert(1); }
+.brand-logo-footer { height:22px !important; max-height:22px !important; filter:brightness(0) invert(1) !important; }
+
