@@ -28,10 +28,15 @@ document.getElementById('brief-form').addEventListener('submit', async (event) =
   result.textContent = '';
   result.style.color = 'inherit';
   
+  const json = Object.fromEntries(data.entries());
+  
   try {
     const response = await fetch('/api/contact', {
       method: 'POST',
-      body: data
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(json)
     });
     
     if (response.ok) {
