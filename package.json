@@ -6,5 +6,8 @@
     "build": "node build.js",
     "start": "npx -y serve . -p 8080",
     "dev": "npx -y serve . -p 8080"
+  },
+  "dependencies": {
+    "nodemailer": "^9.0.3"
   }
 }

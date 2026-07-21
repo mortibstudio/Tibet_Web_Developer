@@ -16,16 +16,36 @@ langToggle.addEventListener('click', () => setLanguage(currentLang === 'tr' ? 'e
 
 document.getElementById('brief-form').addEventListener('submit', async (event) => {
   event.preventDefault();
-  const data = new FormData(event.currentTarget);
-  const brief = currentLang === 'tr'
-    ? `Yeni proje talebi\n\nMarka: ${data.get('brand')}\nİhtiyaç: ${data.get('need')}\nNot: ${data.get('message')}`
-    : `New project inquiry\n\nBrand: ${data.get('brand')}\nNeed: ${data.get('need')}\nNotes: ${data.get('message')}`;
+  const form = event.currentTarget;
+  const data = new FormData(form);
+  const submitBtn = form.querySelector('button[type="submit"]');
   const result = document.querySelector('.form-result');
+  
+  submitBtn.disabled = true;
+  result.textContent = currentLang === 'tr' ? 'Gönderiliyor...' : 'Sending...';
+
   try {
-    await navigator.clipboard.writeText(brief);
-    result.textContent = currentLang === 'tr' ? 'Proje özeti panonuza kopyalandı. İletişim kanalı eklendiğinde doğrudan gönderebilirsiniz.' : 'Your project brief is copied. You can send it directly once the contact channel is added.';
-  } catch {
-    result.textContent = currentLang === 'tr' ? 'Proje özetiniz hazır. İletişim kanalı eklendiğinde doğrudan gönderebilirsiniz.' : 'Your project brief is ready. You can send it directly once the contact channel is added.';
+    const response = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        brand: data.get('brand'),
+        need: data.get('need'),
+        message: data.get('message')
+      })
+    });
+    
+    if (response.ok) {
+      result.textContent = currentLang === 'tr' ? 'Mesajınız başarıyla iletildi.' : 'Your message has been sent successfully.';
+      form.reset();
+    } else {
+      const errorData = await response.json();
+      result.textContent = errorData.message || (currentLang === 'tr' ? 'Bir hata oluştu.' : 'An error occurred.');
+    }
+  } catch (err) {
+    result.textContent = currentLang === 'tr' ? 'Bağlantı hatası oluştu.' : 'Connection error occurred.';
+  } finally {
+    submitBtn.disabled = false;
   }
 });
 
