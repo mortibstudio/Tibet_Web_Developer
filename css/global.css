@@ -20,5 +20,4 @@ button { cursor:pointer; }
 .brand-logo-footer { height:34px !important; max-height:34px !important; filter:brightness(0) invert(1) !important; }
 .brand-logo-mor { height:42px !important; max-height:42px !important; width:auto !important; display:block !important; object-fit:contain !important; transition:opacity .3s ease; }
 .brand-logo-mor:hover { opacity:.82; }
-.brand-logo-mor-footer { height:30px !important; max-height:30px !important; }
-
+.brand-logo-mor-footer { height:30px !important; max-height:30px !important; }.page-wrapper { position: relative; width: 100%; max-width: 100%; overflow-x: hidden; }
