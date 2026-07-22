@@ -5,9 +5,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  const { brand, need, message } = req.body;
+  const { brand, need, email, phone, message } = req.body;
 
-  if (!brand || !message) {
+  if (!brand || !email || !phone || !message) {
     return res.status(400).json({ message: 'Lütfen gerekli alanları doldurun.' });
   }
 
@@ -23,8 +23,9 @@ export default async function handler(req, res) {
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: 'mortibstudio@gmail.com', // E-postanın gideceği adres
+    replyTo: email,
     subject: `Yeni Proje Talebi: ${brand}`,
-    text: `Marka/Ad: ${brand}\nİhtiyaç: ${need}\nMesaj: ${message}`
+    text: `Marka/Ad: ${brand}\nE-posta: ${email}\nTelefon: ${phone}\nİhtiyaç: ${need}\nMesaj: ${message}`
   };
 
   try {

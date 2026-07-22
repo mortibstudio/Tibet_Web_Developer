@@ -16,9 +16,11 @@ $input = json_decode($inputJSON, TRUE);
 
 $brand = $input['brand'] ?? '';
 $need = $input['need'] ?? '';
+$email = $input['email'] ?? '';
+$phone = $input['phone'] ?? '';
 $message = $input['message'] ?? '';
 
-if (empty($brand) || empty($message)) {
+if (empty($brand) || empty($email) || empty($phone) || empty($message)) {
     http_response_code(400);
     echo json_encode(["message" => "Lütfen gerekli alanları doldurun."]);
     exit;
@@ -36,10 +38,10 @@ $subject = "Yeni Proje Talebi: " . $brand;
 // Support Turkish characters in email subject
 $subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
 
-$body = "Marka/Ad: " . $brand . "\nİhtiyaç: " . $need . "\nMesaj: " . $message;
+$body = "Marka/Ad: " . $brand . "\nE-posta: " . $email . "\nTelefon: " . $phone . "\nİhtiyaç: " . $need . "\nMesaj: " . $message;
 
 $headers = "From: " . $from_email . "\r\n" .
-           "Reply-To: " . $from_email . "\r\n" .
+           "Reply-To: " . $email . "\r\n" .
            "MIME-Version: 1.0\r\n" .
            "Content-Type: text/plain; charset=UTF-8\r\n" .
            "X-Mailer: PHP/" . phpversion();
